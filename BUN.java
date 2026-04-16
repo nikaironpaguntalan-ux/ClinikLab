@@ -11,12 +11,17 @@ public class BUN extends ChemistryTest{
     }
     @Override
     public void TestTaken() {
-        SIconverter();
-           Scanner input = new Scanner(System.in);
+        
+        Scanner input = new Scanner(System.in);
         System.out.println("BUN test taken");
         System.out.print("Enter your BUN in mg/dL: ");
         mgdl = input.nextDouble();
+        SIconverter();
         System.out.println("Your BUN in SI units: " + SIconverter() + " mmol/L");
+        InterpretResult();
+    }
+    @Override
+        public void InterpretResult(){
         if (mgdl <= 5.9 ) {
             System.out.println("Result: Hypoglycemia");
         } else if (mgdl >= 6.0 && mgdl <= 20.0) {
@@ -39,6 +44,7 @@ public class BUN extends ChemistryTest{
         super.displayPatientInfo();
         System.out.println("BUN result: " + mgdl + " mg/dL");
         AssignedDoc();
+        InterpretResult();
     }
     
         

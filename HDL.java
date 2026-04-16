@@ -4,15 +4,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-
-public class HDL extends ChemistryTest{
-     boolean fasting;
+public class HDL extends ChemistryTest {
+    boolean fasting;
 
     public HDL(String name, String sex, int age) {
         super(name, sex, age, 0.0);
-        
-        }
-    
+    }
+
     @Override
     public double SIconverter() {
         return mgdl * 0.026;
@@ -20,7 +18,6 @@ public class HDL extends ChemistryTest{
 
     @Override
     public void TestTaken() {
-        SIconverter();
         Scanner input = new Scanner(System.in);
         System.out.println("HDL test taken");
         System.out.println("For Accurate result please fast for at least 9 hours before taking the test.");
@@ -30,8 +27,7 @@ public class HDL extends ChemistryTest{
         LocalDateTime now = LocalDateTime.now();
         LocalTime mealLocalTime = LocalTime.parse(lastmeal, formatter);
         LocalDateTime lastMealTime = LocalDateTime.of(now.toLocalDate(), mealLocalTime);
-       
-       
+
         if (lastMealTime.isAfter(now)) {
             lastMealTime = lastMealTime.minusDays(1);
         }
@@ -41,30 +37,38 @@ public class HDL extends ChemistryTest{
             System.out.println("You are allowed to take the HDL test.");
             System.out.print("Enter your HDL level in mg/dL: ");
             mgdl = input.nextDouble();
-            System.out.println("Your HDL in SI units: " + SIconverter() + "mmol/L");
-            if (sex.equalsIgnoreCase("male")) {
-                if (mgdl <=34.0 ) {
-                    System.out.println("Result: Low HDL (High Heart Risk)");
-                } else if (mgdl >= 35.0 && mgdl <=80.0) {
-                    System.out.println("Result: Normal HDL");
-                } else {
-                    System.out.println("Result: High HDL");
-                }
-            } else if (sex.equalsIgnoreCase("female")) {
-                if (mgdl<=41.0 ) {
-                    System.out.println("Result: Low HDL (High Heart Risk)");
-                } else if (mgdl >= 42.0 && mgdl <= 88.0) {
-                    System.out.println("Result: Normal HDL");
-                } else {
-                    System.out.println("Result: High HDL");
-                }
-            } else {
-                System.out.println("Invalid sex entered. Please enter 'male' or 'female'.");
-            }        
-
+            System.out.println("Your HDL in SI units: " + SIconverter() + " mmol/L");
+            InterpretResult(); 
+        } else {
+            fasting = false;
+            System.out.println("Please come back after " + (9 - hoursSinceMeal) + " more hours.");
+        }
     }
-}
-@Override
+
+    @Override
+    public void InterpretResult() {
+        if (sex.equalsIgnoreCase("male")) {
+            if (mgdl <= 34.0) {
+                System.out.println("Result: Low HDL (High Heart Risk)");
+            } else if (mgdl >= 35.0 && mgdl <= 80.0) {
+                System.out.println("Result: Normal HDL");
+            } else {
+                System.out.println("Result: High HDL");
+            }
+        } else if (sex.equalsIgnoreCase("female")) {
+            if (mgdl <= 41.0) {
+                System.out.println("Result: Low HDL (High Heart Risk)");
+            } else if (mgdl >= 42.0 && mgdl <= 88.0) {
+                System.out.println("Result: Normal HDL");
+            } else {
+                System.out.println("Result: High HDL");
+            }
+        } else {
+            System.out.println("Invalid sex entered. Please enter 'male' or 'female'.");
+        }
+    }
+
+    @Override
     public void AssignedDoc() {
         System.out.println("Assigned Doctor: Dr. Karl John Montibon");
     }
@@ -78,5 +82,7 @@ public class HDL extends ChemistryTest{
     public void displayPatientInfo() {
         super.displayPatientInfo();
         System.out.println("HDL Result (mg/dL): " + mgdl);
+        AssignedDoc();       
+        InterpretResult();   
     }
 }

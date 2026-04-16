@@ -10,12 +10,19 @@ public class Chloride extends ChemistryTest{
     }   
     @Override
     public void TestTaken() {
-        SIconverter();
+       
         Scanner input = new Scanner(System.in);
         System.out.println("Chloride test taken");
         System.out.print("Enter your Chloride in mg/dL: ");
         mgdl = input.nextDouble();
+          SIconverter();
         System.out.println("Your Chloride in SI units: " + SIconverter() + " mmol/L");
+        InterpretResult();
+
+    }
+
+    @Override
+    public void InterpretResult(){
         if (mgdl <= 95) {
             System.out.println("Result: Hypochloremia");
         } else if (mgdl >= 96 && mgdl <= 110) {

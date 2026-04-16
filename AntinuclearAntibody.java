@@ -6,14 +6,20 @@ public class AntinuclearAntibody extends ClinikParent{
             super(name, sex, age);
             this.anaValue = anaValue;
         }
+        @Override
         public double SIconverter(){
             return 0;
         }
+        @Override
         public void TestTaken(){
             Scanner input = new Scanner(System.in);
             System.out.println("Antinuclear Antibody test taken for patient " + name + " with ID " + id);
             System.out.println(" Enter in ANA titer value: ");
             anaValue = input.nextDouble();
+            InterpretResult();
+        }
+        @Override
+            public void InterpretResult(){
             if (anaValue < 40) {
                 System.out.println("Results: LOW (ANA not detected).");
             } else if (anaValue >= 40 && anaValue < 160) {
@@ -24,15 +30,20 @@ public class AntinuclearAntibody extends ClinikParent{
                 System.out.println("Results: High Positive (ANA detected at high levels, strongly suggestive of autoimmune disease).");
             }
         }
+        @Override
         public void AssignedDoc(){
             System.out.println("Assigned Doctor: Kwesel Kwem");
         }
+        @Override
         public double CalculateBill(){
             return 700.0;
         }
+        @Override
         public void displayPatientInfo(){
             super.displayPatientInfo();
             System.out.println("ANA Titer Value: " + anaValue);
+            AssignedDoc();
+            InterpretResult();
         }
 
     }

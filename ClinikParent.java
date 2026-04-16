@@ -15,12 +15,13 @@ public abstract class ClinikParent{
 
         public abstract void TestTaken();
 
+        public abstract void InterpretResult();
+
         public abstract void AssignedDoc();
 
-        public double CalculateBill(){
-            return 0.0;
+        public abstract double CalculateBill();
 
-    }
+    
 
     public void displayPatientInfo() {
         System.out.println("Patient Name: " + name);

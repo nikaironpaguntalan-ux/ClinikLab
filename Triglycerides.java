@@ -4,22 +4,22 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class TotalCholesterol extends ChemistryTest {
-    protected boolean fasting;
+public class Triglycerides extends ChemistryTest {
+    boolean fasting;
 
-    public TotalCholesterol(String name, String sex, int age) {
+    public Triglycerides(String name, String sex, int age) {
         super(name, sex, age, 0.0);
     }
 
     @Override
     public double SIconverter() {
-        return mgdl * 0.026;
+        return mgdl * 0.0114;
     }
 
-    @Override 
+    @Override
     public void TestTaken() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Total Cholesterol test taken");
+        System.out.println("Triglycerides test taken");
         System.out.println("For accurate results, please fast for at least 9 hours before taking the test.");
         System.out.print("Enter the time of the last meal (HH:mm): ");
         String lastmeal = input.nextLine();
@@ -37,10 +37,10 @@ public class TotalCholesterol extends ChemistryTest {
 
         if (hoursSinceMeal >= 9) {
             fasting = true;
-            System.out.println("You are allowed to take the Total Cholesterol test.");
-            System.out.print("Enter your cholesterol level in mg/dL: ");
+            System.out.println("You are allowed to take the Triglycerides test.");
+            System.out.print("Enter your Triglycerides level in mg/dL: ");
             mgdl = input.nextDouble();
-            System.out.println("Your cholesterol in SI units: " + SIconverter() + " mmol/L");
+            System.out.println("Your Tryglicerides in SI units: " + SIconverter() + " mmol/L");
             InterpretResult();
         } else {
             fasting = false;
@@ -50,12 +50,24 @@ public class TotalCholesterol extends ChemistryTest {
 
     @Override
     public void InterpretResult() {
-        if (mgdl <= 200) {
-            System.out.println("Result: Normal");
-        } else if (mgdl <= 239) {
-            System.out.println("Result: Borderline High");
+        if (sex.equalsIgnoreCase("male")) {
+            if (mgdl <= 59) {
+                System.out.println("Result: Low Triglycerides (High Heart Risk)");
+            } else if (mgdl >= 60 && mgdl <= 165) {
+                System.out.println("Result: Normal Triglycerides");
+            } else {
+                System.out.println("Result: High Triglycerides");
+            }
+        } else if (sex.equalsIgnoreCase("female")) {
+            if (mgdl <= 39) {
+                System.out.println("Result: Low Triglycerides (High Heart Risk)");
+            } else if (mgdl >= 40 && mgdl <= 140) {
+                System.out.println("Result: Normal Triglycerides");
+            } else {
+                System.out.println("Result: High Triglycerides");
+            }
         } else {
-            System.out.println("Result: High");
+            System.out.println("Invalid sex entered. Please enter 'male' or 'female'.");
         }
     }
 
@@ -66,13 +78,13 @@ public class TotalCholesterol extends ChemistryTest {
 
     @Override
     public double CalculateBill() {
-        return 150.0;
+        return 300.0;
     }
 
     @Override
     public void displayPatientInfo() {
         super.displayPatientInfo();
-        System.out.println("Total Cholesterol Result (mg/dL): " + mgdl);
+        System.out.println("Tryglicerides result: " + mgdl + " mg/dL");
         AssignedDoc();
         InterpretResult();
     }

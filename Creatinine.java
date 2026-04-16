@@ -11,12 +11,17 @@ public class Creatinine extends ChemistryTest{
     }
     @Override
     public void TestTaken() {
-        SIconverter();
+       
            Scanner input = new Scanner(System.in);
         System.out.println(" Creatinine test taken");
         System.out.print("Enter your Creatinine in mg/dL: ");
         mgdl = input.nextDouble();
+         SIconverter();
         System.out.println("Your Creatinine in SI units: " + SIconverter() + " mmol/L");
+        InterpretResult();
+    }
+         @Override
+    public void InterpretResult(){
         if (sex.equalsIgnoreCase("male")) {
             if (mgdl <= 0.8) {
                 System.out.println("Result: Low Creatinine (Low Muscle Mass or Kidney Disease)");
@@ -51,6 +56,7 @@ public class Creatinine extends ChemistryTest{
         super.displayPatientInfo();
         System.out.println("Creatinine result: " + mgdl + " mg/dL");
         AssignedDoc();
+        InterpretResult();
     }
 
 

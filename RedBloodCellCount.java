@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class RedBloodCellCount extends ClinikParent {
     protected double rbcCount;
 
@@ -6,16 +7,23 @@ public class RedBloodCellCount extends ClinikParent {
         super(name, sex, age);
         this.rbcCount = rbcCount;
     }
+
     @Override
-    public double SIconverter(){
+    public double SIconverter() {
         return 0.0;
     }
+
     @Override
     public void TestTaken() {
         System.out.print("Enter Red Blood Cell Count (million cells/uL): ");
         Scanner input = new Scanner(System.in);
         rbcCount = input.nextDouble();
-        if (age < 12){
+        InterpretResult();
+    }
+
+    @Override
+    public void InterpretResult() {
+        if (age < 12) {
             if (rbcCount <= 4.1) {
                 System.out.println("Red Blood Cell Count is low. Possible anemia.");
             } else if (rbcCount > 5.5) {
@@ -33,14 +41,22 @@ public class RedBloodCellCount extends ClinikParent {
             }
         }
     }
-    public void AssignedDoc(){
+
+    @Override
+    public void AssignedDoc() {
         System.out.println("Assigned Doctor: Reynaldonna Smeretsa");
     }
-    public double CalculateBill(){
+
+    @Override
+    public double CalculateBill() {
         return 150.0;
     }
-    public void dispplayPatientInfo(){
+
+    @Override
+    public void displayPatientInfo() {
         super.displayPatientInfo();
         System.out.println("Red Blood Cell Count: " + rbcCount + " million cells/uL");
+        AssignedDoc();
+        InterpretResult();
     }
 }

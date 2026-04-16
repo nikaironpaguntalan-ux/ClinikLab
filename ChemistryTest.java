@@ -15,12 +15,16 @@ public abstract class ChemistryTest extends ClinikParent {
 
     @Override
     public void AssignedDoc() {
-        System.out.println("Assigned Doctor: Dr. Smith");
+       
     }
 
-    public void displayPatientInfo() {
-        super.displayPatientInfo();
-        System.out.println("Chemistry Test Result (mg/dL): " + mgdl);
+    @Override
+    public void InterpretResult(){
+
+    }
+
+    public void displayPatientInfo(){
+        
     }
 
     public abstract double SIconverter();

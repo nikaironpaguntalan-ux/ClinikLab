@@ -4,23 +4,23 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-
-public class LDL extends ChemistryTest{
+public class LDL extends ChemistryTest {
     boolean fasting;
-    public LDL(String name, String sex, int age){
-        super(name, sex, age, 0.0);
 
+    public LDL(String name, String sex, int age) {
+        super(name, sex, age, 0.0);
     }
+
     @Override
-    public double SIconverter(){
+    public double SIconverter() {
         return mgdl * 0.026;
     }
+
     @Override
-    public void TestTaken(){
-        SIconverter();
-         Scanner input = new Scanner(System.in);
+    public void TestTaken() {
+        Scanner input = new Scanner(System.in);
         System.out.println("LDL test taken");
-        System.out.print("For accurate results, please fast for at least 9 hours before taking the test.");
+        System.out.println("For accurate results, please fast for at least 9 hours before taking the test.");
         System.out.print("Enter the time of the last meal (HH:mm): ");
         String lastmeal = input.nextLine();
 
@@ -29,7 +29,6 @@ public class LDL extends ChemistryTest{
         LocalTime mealLocalTime = LocalTime.parse(lastmeal, formatter);
         LocalDateTime lastMealTime = LocalDateTime.of(now.toLocalDate(), mealLocalTime);
 
- 
         if (lastMealTime.isAfter(now)) {
             lastMealTime = lastMealTime.minusDays(1);
         }
@@ -42,35 +41,39 @@ public class LDL extends ChemistryTest{
             System.out.print("Enter your LDL level in mg/dL: ");
             mgdl = input.nextDouble();
             System.out.println("Your LDL in SI units: " + SIconverter() + " mmol/L");
-            if (mgdl < 49 ) {
-                System.out.println("Result: Low");
-            } else if (mgdl >= 50 && mgdl <= 130) {
-                System.out.println("Result: Normal");
-            } else {
-                System.out.println("Result: High");
-
-            }
+            InterpretResult();
         } else {
             fasting = false;
             System.out.println("Please come back after " + (9 - hoursSinceMeal) + " more hours.");
         }
     }
+
+    @Override
+    public void InterpretResult() {
+        if (mgdl < 49) {
+            System.out.println("Result: Low");
+        } else if (mgdl >= 50 && mgdl <= 130) {
+            System.out.println("Result: Normal");
+        } else {
+            System.out.println("Result: High");
+        }
+    }
+
     @Override
     public void AssignedDoc() {
         System.out.println("Assigned Doctor: Dr. Karl John Montibon");
     }
-    @Override
-    public double CalculateBill(){
-        return 300.0;
 
-    }
     @Override
-    public void displayPatientInfo(){
+    public double CalculateBill() {
+        return 300.0;
+    }
+
+    @Override
+    public void displayPatientInfo() {
         super.displayPatientInfo();
         System.out.println("LDL result: " + mgdl + " mg/dL");
         AssignedDoc();
+        InterpretResult();
     }
-
-
-
-} 
+}

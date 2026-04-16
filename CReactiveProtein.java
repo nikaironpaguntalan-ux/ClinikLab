@@ -5,14 +5,20 @@ public class CReactiveProtein extends ClinikParent{
             super(name, sex, age);
             this.crpValue = crpValue;
         }
+         @Override
         public double SIconverter(){
             return 0;
         }   
+         @Override
         public void TestTaken(){
             Scanner input = new Scanner(System.in);
             System.out.println("C-Reactive Protein test taken for patient " + name + " with ID " + id);
             System.out.println(" Enter in mg/L C-Reactive Protein value: ");
             crpValue = input.nextDouble();
+            InterpretResult();
+        }
+             @Override
+    public void InterpretResult(){
             if (crpValue < 3) {
                 System.out.println("Results: Normal (Low cardiovascular risk).");
             } else if (crpValue >= 3 && crpValue < 10) {
@@ -21,15 +27,22 @@ public class CReactiveProtein extends ClinikParent{
                 System.out.println("Results: High (High cardiovascular risk, likely indicates significant inflammation or infection).");
             }
         }
+        
+         @Override
         public void AssignedDoc(){
             System.out.println("Assigned Doctor: Kwesel Kwem");
         }
+         @Override
         public double CalculateBill(){
             return 300.0;
         }
+         @Override
         public void displayPatientInfo(){
             super.displayPatientInfo();
             System.out.println("C-Reactive Protein Value: " + crpValue + " mg/L");
+            AssignedDoc();
+            InterpretResult();
+            
         }
 
     }

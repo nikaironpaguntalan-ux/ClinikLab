@@ -5,8 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class FBS extends ChemistryTest {
-  protected boolean fasting;
-  public FBS(String name, String sex, int age) {
+    protected boolean fasting;
+
+    public FBS(String name, String sex, int age) {
         super(name, sex, age, 0.0);
     }
 
@@ -17,7 +18,6 @@ public class FBS extends ChemistryTest {
 
     @Override 
     public void TestTaken() {
-        SIconverter();
         Scanner input = new Scanner(System.in);
         System.out.println("FBS test taken");
         System.out.print("Enter the time of the last meal (HH:mm): ");
@@ -41,16 +41,7 @@ public class FBS extends ChemistryTest {
                 System.out.print("Enter your blood glucose in mg/dL: ");
                 mgdl = input.nextDouble();
                 System.out.println("Your glucose in SI units: " + SIconverter() + " mmol/L");
-
-                if (mgdl < 70.0) {
-                    System.out.println("Result: Hypoglycemia");
-                } else if (mgdl <= 100.0) {
-                    System.out.println("Result: Normal");
-                } else if (mgdl <= 125.0) {
-                    System.out.println("Result: Prediabetes");
-                } else {
-                    System.out.println("Result: Diabetes");
-                }
+                InterpretResult(); 
             } else {
                 fasting = false;
                 System.out.println("Please come back after " + (8 - hoursSinceMeal) + " more hours.");
@@ -60,6 +51,20 @@ public class FBS extends ChemistryTest {
         }
     }
 
+    @Override
+    public void InterpretResult() {
+        if (mgdl < 70.0) {
+            System.out.println("Result: Hypoglycemia");
+        } else if (mgdl <= 100.0) {
+            System.out.println("Result: Normal");
+        } else if (mgdl <= 125.0) {
+            System.out.println("Result: Prediabetes");
+        } else {
+            System.out.println("Result: Diabetes");
+        }
+    }
+
+    @Override
     public void AssignedDoc() {
         System.out.println("Assigned doctor: Dr. Karl John Montibon");
     }
@@ -73,5 +78,7 @@ public class FBS extends ChemistryTest {
     public void displayPatientInfo() {
         super.displayPatientInfo();
         System.out.println("Fasting Blood Sugar Result (mg/dL): " + mgdl);
+        AssignedDoc();
+        InterpretResult();
     }
 }

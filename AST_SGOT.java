@@ -11,12 +11,16 @@ public class AST_SGOT extends ChemistryTest{
     }
     @Override
     public void TestTaken() {
-        SIconverter();
+      
         Scanner input = new Scanner(System.in);
         System.out.println("AST/SGOT test taken");
         System.out.print("Enter your AST/SGOT in mg/dL: ");
         mgdl = input.nextDouble();
+         SIconverter();
         System.out.println("Your AST/SGOT in SI units: " + SIconverter() + " µkat/L");
+        InterpretResult();
+    }
+        public void InterpretResult(){
         if (mgdl <= 46) {
             System.out.println("Result: Normal AST/SGOT");
         } else {
@@ -36,6 +40,7 @@ public class AST_SGOT extends ChemistryTest{
         super.displayPatientInfo();
         System.out.println("AST/SGOT result: " + mgdl + " mg/dL");
         AssignedDoc();
+        InterpretResult();
     }
 
 

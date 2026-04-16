@@ -9,21 +9,26 @@ public class ALT_SGPT extends ChemistryTest{
     public double SIconverter(){
         return mgdl * 0.017;
     }
-    @Override
+@Override
     
     public void TestTaken() {
-        SIconverter();
         Scanner input = new Scanner(System.in);
         System.out.println("ALT/SGPT test taken");
         System.out.print("Enter your ALT/SGPT in mg/dL: ");
         mgdl = input.nextDouble();
+         SIconverter();
         System.out.println("Your ALT/SGPT in SI units: " + SIconverter() + " µkat/L");
+        InterpretResult();
+    
+    }
+          public void  InterpretResult(){
         if (mgdl <= 49) {
             System.out.println("Result: Normal ALT/SGPT");
         } else {
-            System.out.println("Result: Elevated ALT/SGPT (Liver Dysfunction)");
+            System.out.println("Result: Elevated ALT/SGPT (Liver Dysfunction)");}
+
         }
-    }
+    
     @Override
     public void AssignedDoc() {
         System.out.println("Assigned Doctor: Dr. Karl John Montibon");
@@ -37,6 +42,7 @@ public class ALT_SGPT extends ChemistryTest{
         super.displayPatientInfo();
         System.out.println("ALT/SGPT result: " + mgdl + " mg/dL");
         AssignedDoc();
+        InterpretResult();
     }
 
 
