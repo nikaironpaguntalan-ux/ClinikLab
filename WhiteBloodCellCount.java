@@ -15,7 +15,7 @@ public class WhiteBloodCellCount extends ClinikParent {
 
     @Override
     public void TestTaken() {
-        System.out.print("Enter White Blood Cell Count (x10^9/L): ");
+        System.out.print("Enter White Blood Cell Count (U/L): ");
         Scanner input = new Scanner(System.in);
         wbcCount = input.nextDouble();
         InterpretResult();
@@ -55,7 +55,7 @@ public class WhiteBloodCellCount extends ClinikParent {
     @Override
     public void displayPatientInfo() {
         super.displayPatientInfo();
-        System.out.println("White Blood Cell Count: " + wbcCount + " x10^9/L");
+        System.out.println("White Blood Cell Count: " + wbcCount + " U/L");
         AssignedDoc();
         InterpretResult();
     }
